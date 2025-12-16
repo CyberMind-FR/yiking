@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#d4af37">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Yi Jing">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <title>Oracle Yi Jing - La Livrée d'Hermès</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Sans+SC:wght@400;500&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --gold: #d4af37;
+      --gold-light: #f4d03f;
+      --gold-dark: #996515;
+      --bg-dark: #0a0a0f;
+      --bg-card: #12121a;
+      --bg-card-hover: #1a1a25;
+      --text-primary: #e8e6e3;
+      --text-secondary: #9a9a9a;
+      --yang: #c41e3a;
+      --yin: #1e3a5f;
+      --mutation: #7b2d8e;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    
+    /* Background mystique */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(ellipse at 20% 20%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(212, 175, 55, 0.02) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(30, 58, 95, 0.05) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      min-height: 100vh;
+    }
+    
+    /* Header */
+    header {
+      text-align: center;
+      padding: 30px 0;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      margin-bottom: 30px;
+    }
+    
+    .logo {
+      font-family: 'Cinzel', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.15em;
+      text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+      margin-bottom: 8px;
+    }
+    
+    .subtitle {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+    }
+    
+    /* Language selector */
+    .lang-selector {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 20px 0;
+    }
+    
+    .lang-btn {
+      background: transparent;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      color: var(--text-secondary);
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+    
+    .lang-btn:hover, .lang-btn.active {
+      background: var(--gold);
+      color: var(--bg-dark);
+      border-color: var(--gold);
+    }
+    
+    /* Question input */
+    .question-section {
+      margin-bottom: 30px;
+    }
+    
+    .question-label {
+      display: block;
+      font-size: 1.1rem;
+      color: var(--gold);
+      margin-bottom: 12px;
+      font-family: 'Cinzel', serif;
+    }
+    
+    .question-input {
+      width: 100%;
+      padding: 15px 20px;
+      background: var(--bg-card);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 10px;
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 1rem;
+      resize: vertical;
+      min-height: 80px;
+      transition: border-color 0.3s;
+    }
+    
+    .question-input:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+    
+    .question-input::placeholder {
+      color: var(--text-secondary);
+    }
+    
+    /* Tirage section */
+    .tirage-section {
+      margin-bottom: 30px;
+    }
+    
+    .traits-display {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 30px;
+      background: var(--bg-card);
+      border-radius: 15px;
+      border: 1px solid rgba(212, 175, 55, 0.15);
+      margin-bottom: 20px;
+    }
+    
+    .trait {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      width: 100%;
+      max-width: 280px;
+      justify-content: center;
+    }
+    
+    .trait-num {
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      width: 20px;
+    }
+    
+    .trait-line {
+      flex: 1;
+      height: 12px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.5s ease;
+    }
+    
+    .trait-line.empty {
+      background: rgba(255,255,255,0.05);
+      border: 1px dashed rgba(255,255,255,0.1);
+    }
+    
+    .trait-line.yang {
+      background: linear-gradient(90deg, var(--yang), #e63950);
+      box-shadow: 0 0 15px rgba(196, 30, 58, 0.4);
+    }
+    
+    .trait-line.yin {
+      background: transparent;
+      position: relative;
+    }
+    
+    .trait-line.yin::before,
+    .trait-line.yin::after {
+      content: '';
+      position: absolute;
+      width: 42%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--yin), #2a5a8f);
+      border-radius: 6px;
+      box-shadow: 0 0 15px rgba(30, 58, 95, 0.4);
+    }
+    
+    .trait-line.yin::before { left: 0; }
+    .trait-line.yin::after { right: 0; }
+    
+    .trait-line.yang-mut {
+      background: linear-gradient(90deg, var(--mutation), #9b3db0);
+      box-shadow: 0 0 20px rgba(123, 45, 142, 0.5);
+      animation: pulse-mut 2s infinite;
+    }
+    
+    .trait-line.yin-mut {
+      background: transparent;
+      position: relative;
+    }
+    
+    .trait-line.yin-mut::before,
+    .trait-line.yin-mut::after {
+      content: '';
+      position: absolute;
+      width: 42%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--mutation), #9b3db0);
+      border-radius: 6px;
+      box-shadow: 0 0 20px rgba(123, 45, 142, 0.5);
+      animation: pulse-mut 2s infinite;
+    }
+    
+    .trait-line.yin-mut::before { left: 0; }
+    .trait-line.yin-mut::after { right: 0; }
+    
+    @keyframes pulse-mut {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+    
+    .trait-value {
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      width: 25px;
+      text-align: right;
+    }
+    
+    /* Coins animation */
+    .coins-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 20px 0;
+      min-height: 60px;
+    }
+    
+    .coin {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, var(--gold-light), var(--gold-dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Noto Sans SC', sans-serif;
+      font-size: 1.5rem;
+      color: var(--bg-dark);
+      box-shadow: 
+        0 4px 15px rgba(0,0,0,0.3),
+        inset 0 2px 5px rgba(255,255,255,0.3);
+      opacity: 0;
+      transform: rotateY(0deg);
+      transition: all 0.5s ease;
+    }
+    
+    .coin.flip {
+      animation: coinFlip 0.8s ease-out forwards;
+    }
+    
+    @keyframes coinFlip {
+      0% { 
+        opacity: 0;
+        transform: rotateY(0deg) translateY(-30px);
+      }
+      50% {
+        opacity: 1;
+        transform: rotateY(540deg) translateY(0);
+      }
+      100% {
+        opacity: 1;
+        transform: rotateY(720deg) translateY(0);
+      }
+    }
+    
+    /* Buttons */
+    .btn-primary {
+      width: 100%;
+      padding: 18px 30px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      border: none;
+      border-radius: 10px;
+      color: var(--bg-dark);
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 30px rgba(212, 175, 55, 0.4);
+    }
+    
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+    
+    .btn-primary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .btn-secondary {
+      padding: 12px 24px;
+      background: transparent;
+      border: 1px solid var(--gold);
+      border-radius: 8px;
+      color: var(--gold);
+      font-family: 'Cinzel', serif;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-secondary:hover {
+      background: var(--gold);
+      color: var(--bg-dark);
+    }
+    
+    /* Results */
+    .results-section {
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+    
+    .results-section.visible {
+      display: block;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .hexagram-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 20px;
+    }
+    
+    .hexagram-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+    }
+    
+    .hexagram-number {
+      font-family: 'Cinzel', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--gold);
+      min-width: 60px;
+    }
+    
+    .hexagram-info {
+      flex: 1;
+    }
+    
+    .hexagram-name {
+      font-family: 'Cinzel', serif;
+      font-size: 1.5rem;
+      color: var(--text-primary);
+      margin-bottom: 5px;
+    }
+    
+    .hexagram-chinese {
+      font-family: 'Noto Sans SC', sans-serif;
+      font-size: 1.8rem;
+      color: var(--gold);
+    }
+    
+    .hexagram-pinyin {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      font-style: italic;
+    }
+    
+    .section-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      color: var(--gold);
+      margin: 20px 0 10px 0;
+      letter-spacing: 0.1em;
+    }
+    
+    .section-content {
+      color: var(--text-primary);
+      line-height: 1.8;
+      font-size: 1.05rem;
+    }
+    
+    .trigram-info {
+      display: flex;
+      gap: 20px;
+      margin: 15px 0;
+    }
+    
+    .trigram {
+      flex: 1;
+      padding: 15px;
+      background: rgba(212, 175, 55, 0.05);
+      border-radius: 10px;
+      text-align: center;
+    }
+    
+    .trigram-label {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-bottom: 5px;
+    }
+    
+    .trigram-name {
+      font-family: 'Cinzel', serif;
+      color: var(--gold);
+    }
+    
+    /* Mutation arrow */
+    .mutation-arrow {
+      text-align: center;
+      padding: 20px;
+      font-size: 2rem;
+      color: var(--mutation);
+    }
+    
+    /* History */
+    .history-section {
+      margin-top: 40px;
+      padding-top: 30px;
+      border-top: 1px solid rgba(212, 175, 55, 0.2);
+    }
+    
+    .history-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.2rem;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    
+    .history-item {
+      background: var(--bg-card);
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .history-item:hover {
+      background: var(--bg-card-hover);
+    }
+    
+    .history-date {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+    
+    .history-hex {
+      font-family: 'Cinzel', serif;
+      color: var(--gold);
+    }
+    
+    .history-question {
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      margin-top: 5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    /* Install prompt */
+    .install-prompt {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--gold);
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      z-index: 1000;
+      animation: slideUp 0.5s ease;
+    }
+    
+    .install-prompt.visible {
+      display: block;
+    }
+    
+    @keyframes slideUp {
+      from { transform: translateY(100px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    
+    .install-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 15px;
+    }
+    
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 30px 0;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+    }
+    
+    footer a {
+      color: var(--gold);
+      text-decoration: none;
+    }
+    
+    /* Responsive */
+    @media (max-width: 480px) {
+      .logo { font-size: 1.5rem; }
+      .hexagram-number { font-size: 2rem; }
+      .hexagram-name { font-size: 1.2rem; }
+      .coin { width: 40px; height: 40px; font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">易經</div>
+      <div class="subtitle">Oracle Yi Jing</div>
+    </header>
+    
+    <div class="lang-selector">
+      <button class="lang-btn active" data-lang="fr">🇫🇷 FR</button>
+      <button class="lang-btn" data-lang="en">🇬🇧 EN</button>
+      <button class="lang-btn" data-lang="de">🇩🇪 DE</button>
+      <button class="lang-btn" data-lang="es">🇪🇸 ES</button>
+      <button class="lang-btn" data-lang="zh">🇨🇳 中文</button>
+    </div>
+    
+    <div class="question-section">
+      <label class="question-label" id="question-label">Votre question à l'oracle</label>
+      <textarea class="question-input" id="question" placeholder="Formulez votre question avec clarté et intention..."></textarea>
+    </div>
+    
+    <div class="tirage-section">
+      <div class="traits-display" id="traits-display">
+        <div class="trait"><span class="trait-num">6</span><div class="trait-line empty" id="trait-6"></div><span class="trait-value" id="val-6">—</span></div>
+        <div class="trait"><span class="trait-num">5</span><div class="trait-line empty" id="trait-5"></div><span class="trait-value" id="val-5">—</span></div>
+        <div class="trait"><span class="trait-num">4</span><div class="trait-line empty" id="trait-4"></div><span class="trait-value" id="val-4">—</span></div>
+        <div class="trait"><span class="trait-num">3</span><div class="trait-line empty" id="trait-3"></div><span class="trait-value" id="val-3">—</span></div>
+        <div class="trait"><span class="trait-num">2</span><div class="trait-line empty" id="trait-2"></div><span class="trait-value" id="val-2">—</span></div>
+        <div class="trait"><span class="trait-num">1</span><div class="trait-line empty" id="trait-1"></div><span class="trait-value" id="val-1">—</span></div>
+      </div>
+      
+      <div class="coins-container" id="coins-container">
+        <div class="coin" id="coin-1"></div>
+        <div class="coin" id="coin-2"></div>
+        <div class="coin" id="coin-3"></div>
+      </div>
+      
+      <button class="btn-primary" id="btn-tirage">Lancer les pièces</button>
+    </div>
+    
+    <div class="results-section" id="results">
+      <!-- Résultats injectés ici -->
+    </div>
+    
+    <div class="history-section" id="history-section">
+      <h3 class="history-title" id="history-title">Historique des tirages</h3>
+      <div id="history-list"></div>
+    </div>
+    
+    <footer>
+      <p>Oracle Yi Jing v2.3</p>
+      <p>© 2025 <a href="https://cybermind.fr" target="_blank">CyberMind.FR</a></p>
+      <p>La Livrée d'Hermès</p>
+    </footer>
+  </div>
+  
+  <div class="install-prompt" id="install-prompt">
+    <p>Installez l'Oracle Yi Jing sur votre appareil</p>
+    <div class="install-buttons">
+      <button class="btn-secondary" id="btn-install">Installer</button>
+      <button class="btn-secondary" id="btn-dismiss">Plus tard</button>
+    </div>
+  </div>
+
+<script>
+// ========== DONNÉES DES HEXAGRAMMES ==========
+const HEXAGRAMS = {
+  1: { nom: "Le Créateur", pinyin: "Qián", char: "乾", trigH: "Ciel", trigB: "Ciel", desc: "L'hexagramme est uniformément fort. Il symbolise le pouvoir créateur primordial.", jugement: "LE CRÉATEUR opère une sublime réussite, favorisant par la persévérance.", image: "Le mouvement du ciel est puissant. Ainsi l'homme noble se rend fort et infatigable." },
+  2: { nom: "Le Réceptif", pinyin: "Kūn", char: "坤", trigH: "Terre", trigB: "Terre", desc: "L'hexagramme est composé uniquement de lignes brisées représentant le yin.", jugement: "LE RÉCEPTIF apporte une sublime réussite par la persévérance d'une jument.", image: "L'état de la terre est la dévotion réceptive. Ainsi l'homme noble porte le monde extérieur." },
+  3: { nom: "La Difficulté initiale", pinyin: "Zhūn", char: "屯", trigH: "Eau", trigB: "Tonnerre", desc: "Ce nom évoque un brin d'herbe qui pousse en se heurtant à un obstacle.", jugement: "LA DIFFICULTÉ INITIALE opère un sublime succès. Il est favorable d'installer des aides.", image: "Nuages et tonnerre : l'image de LA DIFFICULTÉ INITIALE. L'homme noble met de l'ordre dans la confusion." },
+  4: { nom: "La Folie juvénile", pinyin: "Méng", char: "蒙", trigH: "Montagne", trigB: "Eau", desc: "Une source au pied de la montagne symbolise la jeunesse inexpérimentée.", jugement: "LA FOLIE JUVÉNILE a du succès. Ce n'est pas moi qui cherche le jeune fou, c'est lui qui me cherche.", image: "Une source jaillit au pied de la montagne. L'homme noble cultive son caractère par la rigueur." },
+  5: { nom: "L'Attente", pinyin: "Xū", char: "需", trigH: "Eau", trigB: "Ciel", desc: "Tous les êtres ont besoin de nourriture d'en haut, mais le don vient en son temps.", jugement: "L'ATTENTE. Si tu es sincère, tu as lumière et succès. La persévérance apporte la fortune.", image: "Les nuages montent au ciel : l'image de L'ATTENTE. L'homme noble mange et boit, il est joyeux." },
+  6: { nom: "Le Conflit", pinyin: "Sòng", char: "讼", trigH: "Ciel", trigB: "Eau", desc: "Le ciel et l'eau vont en sens opposés, créant le conflit.", jugement: "LE CONFLIT. Tu es sincère et tu te heurtes à l'obstacle. S'arrêter à mi-chemin apporte fortune.", image: "Le ciel et l'eau vont en sens contraires : l'image du CONFLIT." },
+  7: { nom: "L'Armée", pinyin: "Shī", char: "师", trigH: "Terre", trigB: "Eau", desc: "L'eau au milieu de la terre symbolise les forces militaires au sein du peuple.", jugement: "L'ARMÉE a besoin de persévérance et d'un homme fort. Fortune sans blâme.", image: "Au milieu de la terre est l'eau : l'image de L'ARMÉE." },
+  8: { nom: "L'Union", pinyin: "Bǐ", char: "比", trigH: "Eau", trigB: "Terre", desc: "Les eaux sur la surface de la terre coulent ensemble où elles peuvent.", jugement: "L'UNION apporte fortune. Consulte l'oracle pour savoir si tu possèdes constance et persévérance.", image: "Sur la terre est l'eau : l'image de L'UNION." },
+  9: { nom: "Le Pouvoir d'apprivoisement du Petit", pinyin: "Xiǎo Chù", char: "小畜", trigH: "Vent", trigB: "Ciel", desc: "Ce hexagramme signifie la force du petit qui retient, apprivoise, entrave.", jugement: "LE POUVOIR D'APPRIVOISEMENT DU PETIT a du succès. Des nuages denses, pas de pluie.", image: "Le vent souffle à travers le ciel : l'image du POUVOIR D'APPRIVOISEMENT DU PETIT." },
+  10: { nom: "La Marche", pinyin: "Lǚ", char: "履", trigH: "Ciel", trigB: "Lac", desc: "Le nom signifie la bonne façon de se conduire.", jugement: "LA MARCHE. Marcher sur la queue du tigre. Il ne mord pas l'homme. Succès.", image: "Le ciel en haut, le lac en bas : l'image de LA MARCHE." },
+  11: { nom: "La Paix", pinyin: "Tài", char: "泰", trigH: "Terre", trigB: "Ciel", desc: "Le Réceptif est au-dessus, le Créateur en dessous. Leurs influences se rencontrent en harmonie.", jugement: "LA PAIX. Le petit s'en va, le grand approche. Fortune. Succès.", image: "Le ciel et la terre s'unissent : l'image de LA PAIX." },
+  12: { nom: "La Stagnation", pinyin: "Pǐ", char: "否", trigH: "Ciel", trigB: "Terre", desc: "Cet hexagramme est l'opposé du précédent. Le ciel s'éloigne, la terre s'enfonce.", jugement: "LA STAGNATION. Les gens mauvais ne favorisent pas la persévérance de l'homme noble.", image: "Le ciel et la terre ne s'unissent pas : l'image de LA STAGNATION." },
+  13: { nom: "La Communauté avec les Hommes", pinyin: "Tóng Rén", char: "同人", trigH: "Ciel", trigB: "Feu", desc: "Le feu s'élève vers le ciel, symbolisant la communauté.", jugement: "LA COMMUNAUTÉ AVEC LES HOMMES en plein air. Succès.", image: "Le ciel avec le feu : l'image de LA COMMUNAUTÉ AVEC LES HOMMES." },
+  14: { nom: "Le Grand Avoir", pinyin: "Dà Yǒu", char: "大有", trigH: "Feu", trigB: "Ciel", desc: "Le feu au ciel brille au loin, et toutes choses se révèlent dans la lumière.", jugement: "LE GRAND AVOIR. Succès suprême.", image: "Le feu au ciel en haut : l'image du GRAND AVOIR." },
+  15: { nom: "L'Humilité", pinyin: "Qiān", char: "谦", trigH: "Terre", trigB: "Montagne", desc: "Une montagne sous la terre symbolise l'humilité.", jugement: "L'HUMILITÉ crée le succès. L'homme noble mène les choses à leur terme.", image: "Dans la terre, une montagne : l'image de L'HUMILITÉ." },
+  16: { nom: "L'Enthousiasme", pinyin: "Yù", char: "豫", trigH: "Tonnerre", trigB: "Terre", desc: "La ligne forte au quatrième rang trouve réponse de toutes les autres.", jugement: "L'ENTHOUSIASME. Il est favorable d'installer des aides et de mettre des armées en marche.", image: "Le tonnerre sort de la terre en grondant : l'image de L'ENTHOUSIASME." },
+  17: { nom: "La Suite", pinyin: "Suí", char: "随", trigH: "Lac", trigB: "Tonnerre", desc: "Le Joyeux est au-dessus, l'Éveilleur en dessous.", jugement: "LA SUITE a un succès suprême. La persévérance est favorable. Pas de blâme.", image: "Le tonnerre au milieu du lac : l'image de LA SUITE." },
+  18: { nom: "Le Travail sur ce qui est corrompu", pinyin: "Gǔ", char: "蛊", trigH: "Montagne", trigB: "Vent", desc: "Le caractère chinois représente un bol où se reproduisent des vers.", jugement: "LE TRAVAIL SUR CE QUI EST CORROMPU a un succès suprême.", image: "Le vent souffle bas sur la montagne : l'image de LA CORRUPTION." },
+  19: { nom: "L'Approche", pinyin: "Lín", char: "临", trigH: "Terre", trigB: "Lac", desc: "L'hexagramme indique un temps de progrès joyeux et plein d'espoir.", jugement: "L'APPROCHE a un succès suprême. La persévérance est favorable.", image: "La terre au-dessus du lac : l'image de L'APPROCHE." },
+  20: { nom: "La Contemplation", pinyin: "Guān", char: "观", trigH: "Vent", trigB: "Terre", desc: "Le nom signifie à la fois contempler et être vu.", jugement: "LA CONTEMPLATION. L'ablution a été faite, mais pas encore l'offrande.", image: "Le vent souffle sur la terre : l'image de LA CONTEMPLATION." },
+  21: { nom: "Mordre au travers", pinyin: "Shì Kè", char: "噬嗑", trigH: "Feu", trigB: "Tonnerre", desc: "Cet hexagramme représente une bouche ouverte avec un obstacle entre les dents.", jugement: "MORDRE AU TRAVERS a du succès. Il est favorable de laisser la justice s'exercer.", image: "Tonnerre et éclair : l'image de MORDRE AU TRAVERS." },
+  22: { nom: "La Grâce", pinyin: "Bì", char: "贲", trigH: "Montagne", trigB: "Feu", desc: "Le feu jaillit de la terre et illumine la montagne.", jugement: "LA GRÂCE a du succès. Dans les petites choses, il est favorable d'entreprendre.", image: "Le feu au pied de la montagne : l'image de LA GRÂCE." },
+  23: { nom: "L'Éclatement", pinyin: "Bō", char: "剥", trigH: "Montagne", trigB: "Terre", desc: "Les lignes sombres sont sur le point de renverser la dernière ligne lumineuse.", jugement: "L'ÉCLATEMENT. Il n'est pas favorable d'aller quelque part.", image: "La montagne repose sur la terre : l'image de L'ÉCLATEMENT." },
+  24: { nom: "Le Retour", pinyin: "Fù", char: "复", trigH: "Terre", trigB: "Tonnerre", desc: "L'idée d'un tournant : une ligne lumineuse entre par le bas.", jugement: "LE RETOUR. Succès. Sortir et entrer sans erreur. Les amis viennent sans blâme.", image: "Le tonnerre dans la terre : l'image du RETOUR." },
+  25: { nom: "L'Innocence", pinyin: "Wú Wàng", char: "无妄", trigH: "Ciel", trigB: "Tonnerre", desc: "Le ciel est au-dessus, le mouvement en dessous.", jugement: "L'INNOCENCE. Succès suprême. La persévérance est favorable.", image: "Sous le ciel roule le tonnerre : toutes choses atteignent l'état naturel d'innocence." },
+  26: { nom: "Le Pouvoir d'apprivoisement du Grand", pinyin: "Dà Chù", char: "大畜", trigH: "Montagne", trigB: "Ciel", desc: "Le créatif est dompté par l'Immobilisation. Cela produit une grande puissance.", jugement: "LE POUVOIR D'APPRIVOISEMENT DU GRAND. La persévérance est favorable.", image: "Le ciel au sein de la montagne : l'image du POUVOIR D'APPRIVOISEMENT DU GRAND." },
+  27: { nom: "Les Commissures des lèvres", pinyin: "Yí", char: "颐", trigH: "Montagne", trigB: "Tonnerre", desc: "Cet hexagramme représente une bouche ouverte, menant à la nourriture.", jugement: "LES COMMISSURES DES LÈVRES. La persévérance apporte fortune.", image: "Au pied de la montagne, le tonnerre : l'image de POURVOIR À LA NOURRITURE." },
+  28: { nom: "La Prépondérance du Grand", pinyin: "Dà Guò", char: "大过", trigH: "Lac", trigB: "Vent", desc: "Quatre lignes fortes à l'intérieur, deux lignes faibles à l'extérieur.", jugement: "LA PRÉPONDÉRANCE DU GRAND. La poutre faîtière ploie jusqu'au point de rupture.", image: "Le lac s'élève au-dessus des arbres : l'image de LA PRÉPONDÉRANCE DU GRAND." },
+  29: { nom: "L'Insondable (L'Eau)", pinyin: "Kǎn", char: "坎", trigH: "Eau", trigB: "Eau", desc: "Ce hexagramme consiste en un doublement du trigramme Kan.", jugement: "L'INSONDABLE répété. Si tu es sincère, tu as le succès dans le cœur.", image: "L'eau coule sans interruption et atteint son but : l'image de L'INSONDABLE répété." },
+  30: { nom: "Ce qui s'attache (Le Feu)", pinyin: "Lí", char: "离", trigH: "Feu", trigB: "Feu", desc: "Ce hexagramme est un autre double signe. Li signifie s'attacher et aussi clarté.", jugement: "CE QUI S'ATTACHE. La persévérance est favorable. Elle apporte le succès.", image: "Ce qui est brillant s'élève deux fois : l'image du FEU." },
+  31: { nom: "L'Influence", pinyin: "Xián", char: "咸", trigH: "Lac", trigB: "Montagne", desc: "Le nom signifie universel, influencer, stimuler.", jugement: "L'INFLUENCE. Succès. La persévérance est favorable. Prendre une jeune fille pour épouse apporte fortune.", image: "Un lac sur la montagne : l'image de L'INFLUENCE." },
+  32: { nom: "La Durée", pinyin: "Héng", char: "恒", trigH: "Tonnerre", trigB: "Vent", desc: "Le trigramme fort est au-dessus, le trigramme faible en dessous.", jugement: "LA DURÉE. Succès. Pas de blâme. La persévérance est favorable.", image: "Tonnerre et vent : l'image de LA DURÉE. L'homme noble reste ferme." },
+  33: { nom: "La Retraite", pinyin: "Dùn", char: "遁", trigH: "Ciel", trigB: "Montagne", desc: "Le pouvoir de l'obscur est en ascension. La lumière se retire en sécurité.", jugement: "LA RETRAITE. Succès. Dans les petites choses, la persévérance est favorable.", image: "La montagne sous le ciel : l'image de LA RETRAITE." },
+  34: { nom: "La Puissance du Grand", pinyin: "Dà Zhuàng", char: "大壮", trigH: "Tonnerre", trigB: "Ciel", desc: "Les grandes lignes, c'est-à-dire les lignes lumineuses et fortes, sont puissantes.", jugement: "LA PUISSANCE DU GRAND. La persévérance est favorable.", image: "Le tonnerre au ciel en haut : l'image de LA PUISSANCE DU GRAND." },
+  35: { nom: "Le Progrès", pinyin: "Jìn", char: "晋", trigH: "Feu", trigB: "Terre", desc: "L'hexagramme représente le soleil s'élevant au-dessus de la terre.", jugement: "LE PROGRÈS. Le prince puissant est honoré avec des chevaux en grand nombre.", image: "Le soleil s'élève au-dessus de la terre : l'image du PROGRÈS." },
+  36: { nom: "L'Obscurcissement de la lumière", pinyin: "Míng Yí", char: "明夷", trigH: "Terre", trigB: "Feu", desc: "Le soleil s'est enfoncé sous la terre et est donc obscurci.", jugement: "L'OBSCURCISSEMENT DE LA LUMIÈRE. Dans l'adversité, il est favorable d'être persévérant.", image: "La lumière s'est enfoncée dans la terre : l'image de L'OBSCURCISSEMENT DE LA LUMIÈRE." },
+  37: { nom: "La Famille", pinyin: "Jiā Rén", char: "家人", trigH: "Vent", trigB: "Feu", desc: "L'hexagramme représente les lois qui régissent la famille.", jugement: "LA FAMILLE. La persévérance de la femme est favorable.", image: "Le vent sort du feu : l'image de LA FAMILLE." },
+  38: { nom: "L'Opposition", pinyin: "Kuí", char: "睽", trigH: "Feu", trigB: "Lac", desc: "Li (flamme) en haut et Tui (lac) en bas. Deux mouvements en contraste direct.", jugement: "L'OPPOSITION. Dans les petites choses, fortune.", image: "En haut le feu, en bas le lac : l'image de L'OPPOSITION." },
+  39: { nom: "L'Obstacle", pinyin: "Jiǎn", char: "蹇", trigH: "Eau", trigB: "Montagne", desc: "Un abîme dangereux devant nous, une montagne escarpée derrière.", jugement: "L'OBSTACLE. Le sud-ouest est favorable. Le nord-est ne l'est pas.", image: "L'eau sur la montagne : l'image de L'OBSTACLE." },
+  40: { nom: "La Libération", pinyin: "Xiè", char: "解", trigH: "Tonnerre", trigB: "Eau", desc: "Le mouvement sort de la sphère du danger. L'obstacle a été enlevé.", jugement: "LA LIBÉRATION. Le sud-ouest est favorable. Le retour apporte fortune.", image: "Tonnerre et pluie commencent : l'image de LA LIBÉRATION." },
+  41: { nom: "La Diminution", pinyin: "Sǔn", char: "损", trigH: "Montagne", trigB: "Lac", desc: "Une diminution du trigramme inférieur au profit du supérieur.", jugement: "LA DIMINUTION combinée avec la sincérité apporte une suprême fortune.", image: "Au pied de la montagne, le lac : l'image de LA DIMINUTION." },
+  42: { nom: "L'Augmentation", pinyin: "Yì", char: "益", trigH: "Vent", trigB: "Tonnerre", desc: "L'idée d'augmentation : la ligne forte du trigramme supérieur est descendue.", jugement: "L'AUGMENTATION. Il est favorable d'entreprendre quelque chose.", image: "Vent et tonnerre : l'image de L'AUGMENTATION." },
+  43: { nom: "La Percée", pinyin: "Guài", char: "夬", trigH: "Lac", trigB: "Ciel", desc: "Une percée après une longue accumulation de tension.", jugement: "LA PERCÉE. On doit résolument faire connaître l'affaire à la cour du roi. Danger.", image: "Le lac s'est élevé jusqu'au ciel : l'image de LA PERCÉE." },
+  44: { nom: "Venir à la rencontre", pinyin: "Gòu", char: "姤", trigH: "Ciel", trigB: "Vent", desc: "Le principe de l'obscurité s'introduit furtivement de nouveau.", jugement: "VENIR À LA RENCONTRE. La jeune fille est puissante. On ne doit pas épouser une telle fille.", image: "Sous le ciel, le vent : l'image de VENIR À LA RENCONTRE." },
+  45: { nom: "Le Rassemblement", pinyin: "Cuì", char: "萃", trigH: "Lac", trigB: "Terre", desc: "Cet hexagramme est apparenté à L'UNION. Un lac au-dessus de la terre.", jugement: "LE RASSEMBLEMENT. Succès. Le roi approche de son temple.", image: "Au-dessus de la terre, le lac : l'image du RASSEMBLEMENT." },
+  46: { nom: "La Poussée vers le haut", pinyin: "Shēng", char: "升", trigH: "Terre", trigB: "Vent", desc: "Le bois dans la terre pousse vers le haut.", jugement: "LA POUSSÉE VERS LE HAUT a un succès suprême. On doit voir le grand homme. N'aie pas peur.", image: "Dans la terre, le bois pousse : l'image de LA POUSSÉE VERS LE HAUT." },
+  47: { nom: "L'Accablement", pinyin: "Kùn", char: "困", trigH: "Lac", trigB: "Eau", desc: "Le lac est au-dessus, l'eau en dessous ; le lac est vide, asséché.", jugement: "L'ACCABLEMENT. Succès. Persévérance. Le grand homme apporte fortune. Pas de blâme.", image: "Il n'y a pas d'eau dans le lac : l'image de L'ACCABLEMENT." },
+  48: { nom: "Le Puits", pinyin: "Jǐng", char: "井", trigH: "Eau", trigB: "Vent", desc: "Le bois est en bas, l'eau en haut. Le bois descend pour remonter l'eau.", jugement: "LE PUITS. On peut changer de ville, mais pas de puits.", image: "L'eau au-dessus du bois : l'image du PUITS." },
+  49: { nom: "La Révolution", pinyin: "Gé", char: "革", trigH: "Lac", trigB: "Feu", desc: "Le caractère signifie la peau d'un animal qui change par la mue.", jugement: "LA RÉVOLUTION. Le jour de ta propre révolution, on te croit. Succès suprême. Le remords disparaît.", image: "Le feu dans le lac : l'image de LA RÉVOLUTION." },
+  50: { nom: "Le Chaudron", pinyin: "Dǐng", char: "鼎", trigH: "Feu", trigB: "Vent", desc: "Les six lignes forment l'image du CHAUDRON ; en bas les pieds, au-dessus le ventre.", jugement: "LE CHAUDRON. Suprême fortune. Succès.", image: "Le feu au-dessus du bois : l'image du CHAUDRON." },
+  51: { nom: "L'Éveilleur (Le Tonnerre)", pinyin: "Zhèn", char: "震", trigH: "Tonnerre", trigB: "Tonnerre", desc: "L'hexagramme représente le fils aîné qui prend le pouvoir avec énergie.", jugement: "LE CHOC apporte le succès. Le choc vient — oh, oh ! Des paroles rieuses — ha, ha !", image: "Tonnerre répété : l'image du CHOC." },
+  52: { nom: "L'Immobilisation (La Montagne)", pinyin: "Gèn", char: "艮", trigH: "Montagne", trigB: "Montagne", desc: "L'image de cet hexagramme est la montagne, le plus jeune fils.", jugement: "L'IMMOBILISATION. Garder son dos immobile. Pas de blâme.", image: "Des montagnes proches l'une de l'autre : l'image de L'IMMOBILISATION." },
+  53: { nom: "Le Développement", pinyin: "Jiàn", char: "渐", trigH: "Vent", trigB: "Montagne", desc: "Un arbre sur une montagne se développe lentement selon la loi de son être.", jugement: "LE DÉVELOPPEMENT. La jeune fille est donnée en mariage. Fortune. La persévérance est favorable.", image: "Sur la montagne, un arbre : l'image du DÉVELOPPEMENT." },
+  54: { nom: "L'Épousée", pinyin: "Guī Mèi", char: "归妹", trigH: "Tonnerre", trigB: "Lac", desc: "En haut le fils aîné, en bas la fille cadette. L'homme conduit, la fille suit.", jugement: "L'ÉPOUSÉE. Les entreprises apportent l'infortune. Rien de favorable.", image: "Le tonnerre au-dessus du lac : l'image de L'ÉPOUSÉE." },
+  55: { nom: "L'Abondance", pinyin: "Fēng", char: "丰", trigH: "Tonnerre", trigB: "Feu", desc: "Clarté à l'intérieur, mouvement à l'extérieur — cela produit l'abondance.", jugement: "L'ABONDANCE a du succès. Le roi l'atteint. Ne sois pas triste. Sois comme le soleil à midi.", image: "Tonnerre et éclair viennent : l'image de L'ABONDANCE." },
+  56: { nom: "Le Voyageur", pinyin: "Lǚ", char: "旅", trigH: "Feu", trigB: "Montagne", desc: "La montagne est immobile ; le feu au-dessus flambe et ne s'attarde pas.", jugement: "LE VOYAGEUR. Succès par les petites choses. La persévérance apporte fortune au voyageur.", image: "Le feu sur la montagne : l'image du VOYAGEUR." },
+  57: { nom: "Le Doux (Le Vent)", pinyin: "Xùn", char: "巽", trigH: "Vent", trigB: "Vent", desc: "Sun est un des huit trigrammes doublés. C'est la fille aînée, symbolisant le vent.", jugement: "LE DOUX. Succès par ce qui est petit. Il est favorable d'avoir un but.", image: "Des vents se suivant : l'image du DOUCEMENT PÉNÉTRANT." },
+  58: { nom: "Le Joyeux (Le Lac)", pinyin: "Duì", char: "兑", trigH: "Lac", trigB: "Lac", desc: "Tui désigne la fille cadette ; symbolisée par le lac souriant.", jugement: "LE JOYEUX. Succès. La persévérance est favorable.", image: "Des lacs reposant l'un sur l'autre : l'image du JOYEUX." },
+  59: { nom: "La Dispersion", pinyin: "Huàn", char: "涣", trigH: "Vent", trigB: "Eau", desc: "Le vent soufflant sur l'eau la disperse en écume et brume.", jugement: "LA DISPERSION. Succès. Le roi approche de son temple. Il est favorable de traverser les grandes eaux.", image: "Le vent souffle sur l'eau : l'image de LA DISPERSION." },
+  60: { nom: "La Limitation", pinyin: "Jié", char: "节", trigH: "Eau", trigB: "Lac", desc: "Un lac occupe un espace limité. Quand plus d'eau y entre, il déborde.", jugement: "LA LIMITATION. Succès. La limitation irritante ne doit pas être maintenue.", image: "L'eau au-dessus du lac : l'image de LA LIMITATION." },
+  61: { nom: "La Vérité intérieure", pinyin: "Zhōng Fú", char: "中孚", trigH: "Vent", trigB: "Lac", desc: "Le vent souffle sur le lac et agite la surface. Les effets de l'invisible se manifestent.", jugement: "LA VÉRITÉ INTÉRIEURE. Porcs et poissons. Fortune. Il est favorable de traverser les grandes eaux.", image: "Le vent au-dessus du lac : l'image de LA VÉRITÉ INTÉRIEURE." },
+  62: { nom: "La Prépondérance du Petit", pinyin: "Xiǎo Guò", char: "小过", trigH: "Tonnerre", trigB: "Montagne", desc: "Le milieu est trop fort pour les deux extrémités.", jugement: "LA PRÉPONDÉRANCE DU PETIT. Succès. La persévérance est favorable. Les petites choses peuvent être faites.", image: "Le tonnerre sur la montagne : l'image de LA PRÉPONDÉRANCE DU PETIT." },
+  63: { nom: "Après l'accomplissement", pinyin: "Jì Jì", char: "既济", trigH: "Eau", trigB: "Feu", desc: "La transition de la confusion à l'ordre est achevée.", jugement: "APRÈS L'ACCOMPLISSEMENT. Succès dans les petites choses. Au début fortune, à la fin désordre.", image: "L'eau au-dessus du feu : l'image de l'état APRÈS L'ACCOMPLISSEMENT." },
+  64: { nom: "Avant l'accomplissement", pinyin: "Wèi Jì", char: "未济", trigH: "Feu", trigB: "Eau", desc: "Cet hexagramme indique un temps où la transition n'est pas encore achevée.", jugement: "AVANT L'ACCOMPLISSEMENT. Succès. Mais si le petit renard mouille sa queue, rien de favorable.", image: "Le feu au-dessus de l'eau : l'image de l'état avant la transition." }
+};
+
+// Traductions interface
+const UI_TEXTS = {
+  fr: {
+    question_label: "Votre question à l'oracle",
+    question_placeholder: "Formulez votre question avec clarté et intention...",
+    btn_tirage: "Lancer les pièces",
+    btn_new: "Nouveau tirage",
+    history_title: "Historique des tirages",
+    hexagram_principal: "Hexagramme Principal",
+    hexagram_mutation: "Hexagramme de Mutation",
+    trigram_haut: "Trigramme supérieur",
+    trigram_bas: "Trigramme inférieur",
+    jugement: "Le Jugement",
+    image: "L'Image",
+    traits_mutants: "Traits mutants",
+    install_text: "Installez l'Oracle Yi Jing sur votre appareil",
+    install_btn: "Installer",
+    dismiss_btn: "Plus tard"
+  },
+  en: {
+    question_label: "Your question to the oracle",
+    question_placeholder: "Formulate your question with clarity and intention...",
+    btn_tirage: "Cast the coins",
+    btn_new: "New reading",
+    history_title: "Reading history",
+    hexagram_principal: "Primary Hexagram",
+    hexagram_mutation: "Transformed Hexagram",
+    trigram_haut: "Upper trigram",
+    trigram_bas: "Lower trigram",
+    jugement: "The Judgment",
+    image: "The Image",
+    traits_mutants: "Changing lines",
+    install_text: "Install Yi Jing Oracle on your device",
+    install_btn: "Install",
+    dismiss_btn: "Later"
+  },
+  de: {
+    question_label: "Ihre Frage an das Orakel",
+    question_placeholder: "Formulieren Sie Ihre Frage mit Klarheit und Absicht...",
+    btn_tirage: "Münzen werfen",
+    btn_new: "Neues Orakel",
+    history_title: "Orakel-Geschichte",
+    hexagram_principal: "Haupthexagramm",
+    hexagram_mutation: "Wandlungshexagramm",
+    trigram_haut: "Oberes Trigramm",
+    trigram_bas: "Unteres Trigramm",
+    jugement: "Das Urteil",
+    image: "Das Bild",
+    traits_mutants: "Wandelnde Linien",
+    install_text: "Installieren Sie das Yi Jing Orakel",
+    install_btn: "Installieren",
+    dismiss_btn: "Später"
+  },
+  es: {
+    question_label: "Tu pregunta al oráculo",
+    question_placeholder: "Formula tu pregunta con claridad e intención...",
+    btn_tirage: "Lanzar las monedas",
+    btn_new: "Nueva consulta",
+    history_title: "Historial de consultas",
+    hexagram_principal: "Hexagrama Principal",
+    hexagram_mutation: "Hexagrama de Mutación",
+    trigram_haut: "Trigrama superior",
+    trigram_bas: "Trigrama inferior",
+    jugement: "El Juicio",
+    image: "La Imagen",
+    traits_mutants: "Líneas mutantes",
+    install_text: "Instala el Oráculo Yi Jing en tu dispositivo",
+    install_btn: "Instalar",
+    dismiss_btn: "Más tarde"
+  },
+  zh: {
+    question_label: "向神谕提问",
+    question_placeholder: "清晰而有意图地提出你的问题...",
+    btn_tirage: "掷钱",
+    btn_new: "新占卜",
+    history_title: "占卜历史",
+    hexagram_principal: "本卦",
+    hexagram_mutation: "变卦",
+    trigram_haut: "上卦",
+    trigram_bas: "下卦",
+    jugement: "卦辞",
+    image: "象辞",
+    traits_mutants: "变爻",
+    install_text: "安装易经神谕到您的设备",
+    install_btn: "安装",
+    dismiss_btn: "稍后"
+  }
+};
+
+// ========== APPLICATION ==========
+let currentLang = 'fr';
+let currentTrait = 0;
+let traits = [];
+let history = JSON.parse(localStorage.getItem('yijing_history') || '[]');
+
+// Éléments DOM
+const questionInput = document.getElementById('question');
+const btnTirage = document.getElementById('btn-tirage');
+const resultsSection = document.getElementById('results');
+const coinsContainer = document.getElementById('coins-container');
+const historyList = document.getElementById('history-list');
+
+// Initialisation
+function init() {
+  updateLanguage(currentLang);
+  renderHistory();
+  setupEventListeners();
+  registerServiceWorker();
+}
+
+function setupEventListeners() {
+  // Boutons de langue
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentLang = btn.dataset.lang;
+      updateLanguage(currentLang);
+    });
+  });
+  
+  // Bouton tirage
+  btnTirage.addEventListener('click', startTirage);
+  
+  // Installation PWA
+  document.getElementById('btn-dismiss').addEventListener('click', () => {
+    document.getElementById('install-prompt').classList.remove('visible');
+  });
+}
+
+function updateLanguage(lang) {
+  const texts = UI_TEXTS[lang];
+  document.getElementById('question-label').textContent = texts.question_label;
+  questionInput.placeholder = texts.question_placeholder;
+  btnTirage.textContent = texts.btn_tirage;
+  document.getElementById('history-title').textContent = texts.history_title;
+}
+
+// ========== TIRAGE ==========
+function startTirage() {
+  // Reset
+  currentTrait = 0;
+  traits = [];
+  resultsSection.classList.remove('visible');
+  resultsSection.innerHTML = '';
+  
+  // Reset affichage traits
+  for (let i = 1; i <= 6; i++) {
+    document.getElementById(`trait-${i}`).className = 'trait-line empty';
+    document.getElementById(`val-${i}`).textContent = '—';
+  }
+  
+  btnTirage.disabled = true;
+  btnTirage.textContent = '...';
+  
+  // Lancer les 6 traits
+  lancerTrait();
+}
+
+function lancerTrait() {
+  if (currentTrait >= 6) {
+    // Tirage terminé
+    finishTirage();
+    return;
+  }
+  
+  // Animation des pièces
+  const coins = ['coin-1', 'coin-2', 'coin-3'];
+  const results = [];
+  
+  coins.forEach((id, index) => {
+    const coin = document.getElementById(id);
+    coin.className = 'coin';
+    coin.textContent = '';
+    
+    setTimeout(() => {
+      const face = Math.random() < 0.5 ? 3 : 2; // 3 = face (yang), 2 = pile (yin)
+      results.push(face);
+      coin.textContent = face === 3 ? '☰' : '☷';
+      coin.classList.add('flip');
+      
+      if (results.length === 3) {
+        setTimeout(() => {
+          const total = results.reduce((a, b) => a + b, 0);
+          currentTrait++;
+          traits.push(total);
+          updateTraitDisplay(currentTrait, total);
+          
+          // Trait suivant
+          setTimeout(lancerTrait, 500);
+        }, 300);
+      }
+    }, index * 200);
+  });
+}
+
+function updateTraitDisplay(num, value) {
+  const traitEl = document.getElementById(`trait-${num}`);
+  const valEl = document.getElementById(`val-${num}`);
+  
+  valEl.textContent = value;
+  
+  // 6 = vieux yin (mutation), 7 = jeune yang, 8 = jeune yin, 9 = vieux yang (mutation)
+  if (value === 6) {
+    traitEl.className = 'trait-line yin-mut';
+  } else if (value === 7) {
+    traitEl.className = 'trait-line yang';
+  } else if (value === 8) {
+    traitEl.className = 'trait-line yin';
+  } else if (value === 9) {
+    traitEl.className = 'trait-line yang-mut';
+  }
+}
+
+function finishTirage() {
+  const texts = UI_TEXTS[currentLang];
+  btnTirage.disabled = false;
+  btnTirage.textContent = texts.btn_new;
+  
+  // Calculer les hexagrammes
+  const hexNum = calculateHexagram(traits);
+  const hasMutation = traits.some(t => t === 6 || t === 9);
+  let mutHexNum = null;
+  
+  if (hasMutation) {
+    const mutatedTraits = traits.map(t => {
+      if (t === 6) return 7; // vieux yin -> jeune yang
+      if (t === 9) return 8; // vieux yang -> jeune yin
+      return t;
+    });
+    mutHexNum = calculateHexagram(mutatedTraits);
+  }
+  
+  // Afficher résultats
+  displayResults(hexNum, mutHexNum, traits);
+  
+  // Sauvegarder dans l'historique
+  saveToHistory(hexNum, mutHexNum, questionInput.value);
+}
+
+function calculateHexagram(traits) {
+  // Convertir les traits en binaire (yang=1, yin=0)
+  let binary = '';
+  for (let i = 0; i < 6; i++) {
+    const t = traits[i];
+    binary += (t === 7 || t === 9) ? '1' : '0';
+  }
+  
+  // Table de conversion trigrammes
+  const trigramTable = {
+    '111': 0, // Ciel
+    '000': 1, // Terre
+    '001': 2, // Tonnerre
+    '010': 3, // Eau
+    '011': 4, // Montagne
+    '100': 5, // Vent
+    '101': 6, // Feu
+    '110': 7  // Lac
+  };
+  
+  // Table King Wen
+  const kingWen = [
+    [1, 34, 5, 26, 11, 9, 14, 43],
+    [25, 51, 3, 27, 24, 42, 21, 17],
+    [6, 40, 29, 4, 7, 59, 64, 47],
+    [33, 62, 39, 52, 15, 53, 56, 31],
+    [12, 16, 8, 23, 2, 20, 35, 45],
+    [44, 32, 48, 18, 46, 57, 50, 28],
+    [13, 55, 63, 22, 36, 37, 30, 49],
+    [10, 54, 60, 41, 19, 61, 38, 58]
+  ];
+  
+  const lowerTri = binary.substring(0, 3);
+  const upperTri = binary.substring(3, 6);
+  
+  const row = trigramTable[upperTri];
+  const col = trigramTable[lowerTri];
+  
+  return kingWen[row][col];
+}
+
+function displayResults(hexNum, mutHexNum, traits) {
+  const texts = UI_TEXTS[currentLang];
+  const hex = HEXAGRAMS[hexNum];
+  
+  let html = `
+    <div class="hexagram-card">
+      <div class="hexagram-header">
+        <div class="hexagram-number">${hexNum}</div>
+        <div class="hexagram-info">
+          <div class="hexagram-name">${hex.nom}</div>
+          <div class="hexagram-chinese">${hex.char}</div>
+          <div class="hexagram-pinyin">${hex.pinyin}</div>
+        </div>
+      </div>
+      
+      <div class="trigram-info">
+        <div class="trigram">
+          <div class="trigram-label">${texts.trigram_haut}</div>
+          <div class="trigram-name">${hex.trigH}</div>
+        </div>
+        <div class="trigram">
+          <div class="trigram-label">${texts.trigram_bas}</div>
+          <div class="trigram-name">${hex.trigB}</div>
+        </div>
+      </div>
+      
+      <p class="section-content">${hex.desc}</p>
+      
+      <h4 class="section-title">${texts.jugement}</h4>
+      <p class="section-content">${hex.jugement}</p>
+      
+      <h4 class="section-title">${texts.image}</h4>
+      <p class="section-content">${hex.image}</p>
+    </div>
+  `;
+  
+  // Afficher les traits mutants
+  const mutantLines = [];
+  traits.forEach((t, i) => {
+    if (t === 6 || t === 9) mutantLines.push(i + 1);
+  });
+  
+  if (mutantLines.length > 0) {
+    html += `
+      <div style="text-align: center; color: var(--mutation); margin: 10px 0;">
+        <strong>${texts.traits_mutants}:</strong> ${mutantLines.join(', ')}
+      </div>
+    `;
+  }
+  
+  // Hexagramme de mutation
+  if (mutHexNum) {
+    const mutHex = HEXAGRAMS[mutHexNum];
+    html += `
+      <div class="mutation-arrow">⟱</div>
+      
+      <div class="hexagram-card" style="border-color: var(--mutation);">
+        <div class="hexagram-header">
+          <div class="hexagram-number" style="color: var(--mutation);">${mutHexNum}</div>
+          <div class="hexagram-info">
+            <div class="hexagram-name">${mutHex.nom}</div>
+            <div class="hexagram-chinese">${mutHex.char}</div>
+            <div class="hexagram-pinyin">${mutHex.pinyin}</div>
+          </div>
+        </div>
+        
+        <p class="section-content">${mutHex.desc}</p>
+        
+        <h4 class="section-title">${texts.jugement}</h4>
+        <p class="section-content">${mutHex.jugement}</p>
+        
+        <h4 class="section-title">${texts.image}</h4>
+        <p class="section-content">${mutHex.image}</p>
+      </div>
+    `;
+  }
+  
+  resultsSection.innerHTML = html;
+  resultsSection.classList.add('visible');
+  
+  // Scroll vers résultats
+  resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ========== HISTORIQUE ==========
+function saveToHistory(hexNum, mutHexNum, question) {
+  const entry = {
+    date: new Date().toISOString(),
+    hexNum,
+    mutHexNum,
+    question: question || '',
+    traits: [...traits]
+  };
+  
+  history.unshift(entry);
+  if (history.length > 20) history = history.slice(0, 20);
+  
+  localStorage.setItem('yijing_history', JSON.stringify(history));
+  renderHistory();
+}
+
+function renderHistory() {
+  if (history.length === 0) {
+    historyList.innerHTML = '<p style="color: var(--text-secondary); text-align: center;">Aucun tirage enregistré</p>';
+    return;
+  }
+  
+  historyList.innerHTML = history.map((entry, index) => {
+    const hex = HEXAGRAMS[entry.hexNum];
+    const date = new Date(entry.date);
+    const dateStr = date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    
+    return `
+      <div class="history-item" onclick="loadHistory(${index})">
+        <div class="history-date">${dateStr}</div>
+        <div class="history-hex">${entry.hexNum}. ${hex.nom} ${hex.char}${entry.mutHexNum ? ' → ' + entry.mutHexNum : ''}</div>
+        ${entry.question ? `<div class="history-question">${entry.question}</div>` : ''}
+      </div>
+    `;
+  }).join('');
+}
+
+function loadHistory(index) {
+  const entry = history[index];
+  traits = entry.traits;
+  questionInput.value = entry.question;
+  
+  // Afficher les traits
+  for (let i = 1; i <= 6; i++) {
+    updateTraitDisplay(i, traits[i-1]);
+  }
+  
+  // Afficher résultats
+  displayResults(entry.hexNum, entry.mutHexNum, traits);
+}
+
+// ========== SERVICE WORKER ==========
+function registerServiceWorker() {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js')
+      .then(reg => console.log('Service Worker enregistré'))
+      .catch(err => console.log('Erreur SW:', err));
+  }
+}
+
+// ========== PWA INSTALL ==========
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  
+  // Afficher le prompt d'installation après un délai
+  setTimeout(() => {
+    document.getElementById('install-prompt').classList.add('visible');
+  }, 3000);
+});
+
+document.getElementById('btn-install').addEventListener('click', async () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    console.log('Installation:', outcome);
+    deferredPrompt = null;
+  }
+  document.getElementById('install-prompt').classList.remove('visible');
+});
+
+// Initialisation au chargement
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

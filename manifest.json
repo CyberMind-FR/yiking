@@ -1,0 +1,26 @@
+{
+  "name": "Oracle Yi Jing - La Livrée d'Hermès",
+  "short_name": "Yi Jing",
+  "description": "Oracle du Yi Jing avec méthode traditionnelle des 3 pièces",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#0a0a0f",
+  "theme_color": "#d4af37",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["lifestyle", "entertainment", "education"],
+  "lang": "fr"
+}
